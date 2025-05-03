@@ -1,0 +1,7 @@
+bioattention_env/
+*.pyc
+__pycache__/
+*.env
+*.DS_Store
+*.dylib
+*.so
