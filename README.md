@@ -51,7 +51,6 @@ This opens the app in your browser.
 
 ## Screenshots
 Below is a screenshot of the app in action, showing the UI for fetching a PubMed abstract and visualizing attention:
-
 ![BioBERT App Demo - Main Interface](screenshots/biobert-app-demo.png)
 
 ![BioBERT Attention Heatmap](screenshots/attention-heatmap.png)
