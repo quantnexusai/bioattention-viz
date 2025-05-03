@@ -19,3 +19,8 @@ def plot_attention_heatmap(tokens, attention_weights, title="Attention Heatmap")
     )
 
     return fig
+
+def plot_attention(text, layer, head, avg_attention):
+    import plotly.graph_objects as go
+    # Placeholder: Implement attention plotting logic
+    return go.Figure(data=go.Heatmap(z=[[1, 2], [3, 4]]))
