@@ -1,3 +1,7 @@
+import streamlit as st
+# Clear all cache
+st.cache_data.clear()
+st.cache_resource.clear()
 import sys
 print("Python version:", sys.version)
 print("Current file:", __file__)
