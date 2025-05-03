@@ -1,15 +1,20 @@
 #!/bin/bash
 
-# This script installs the required dependencies and downloads the scispacy model
-# Run this before deploying to Streamlit Cloud
+# Install system dependencies
+sudo apt-get update
+sudo apt-get install -y $(cat packages.txt)
 
-# Update pip
+# Create virtual environment
+python3 -m venv bioattention_env
+
+# Activate virtual environment
+source bioattention_env/bin/activate
+
+# Install Python dependencies
 pip install --upgrade pip
-
-# Install dependencies from requirements.txt
 pip install -r requirements.txt
 
-# Install scispacy model
-pip install https://s3-us-west-2.amazonaws.com/ai2-s2-scispacy/releases/v0.5.1/en_core_sci_sm-0.5.1.tar.gz
+# Download models
+python download_models.py
 
-echo "Setup complete!"
+echo "Setup complete. Activate with: source bioattention_env/bin/activate"

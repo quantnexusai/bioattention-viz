@@ -1,33 +1,21 @@
 import spacy
-import warnings
+from spacy.tokens import Doc
+import en_core_sci_sm
 
-def detect_entities(text):
-    """Detect biomedical entities in the given text."""
+def get_entities(text, use_scispacy=True):
     try:
-        # Try to load the model directly
-        try:
-            nlp = spacy.load("en_core_sci_sm")
-        except OSError:
-            # If model not found, try to import init_model which will install it
-            try:
-                import init_model
-                nlp = spacy.load("en_core_sci_sm")
-            except (ImportError, OSError) as e:
-                warnings.warn(f"Could not load scispacy model: {e}")
-                # Fallback to a regular spaCy model if available
-                try:
-                    nlp = spacy.load("en_core_web_sm")
-                except OSError:
-                    # Last resort: use a blank model
-                    nlp = spacy.blank("en")
-                    warnings.warn("Using blank spaCy model as fallback")
-        
-        # Process the text
-        doc = nlp(text)
-        
-        # Get entities
-        entities = [(ent.text, ent.label_) for ent in doc.ents]
-        return entities
-    except Exception as e:
-        warnings.warn(f"Error detecting entities: {e}")
-        return []
+        if use_scispacy:
+            nlp = en_core_sci_sm.load()
+            doc = nlp(text)
+            return [(ent.text, ent.label_) for ent in doc.ents]
+    except Exception:
+        print("scispacy model failed, falling back to basic tokenization.")
+    
+    # Fallback: Basic tokenization
+    doc = Doc(spacy.blank("en"), words=text.split())
+    return [(token.text, "TOKEN") for token in doc]
+
+if __name__ == "__main__":
+    text = "TP53 mutations are associated with breast cancer."
+    entities = get_entities(text)
+    print(entities)
