@@ -1,6 +1,0 @@
-gcc
-g++
-make
-libblas-dev
-liblapack-dev
-libatlas-base-dev
