@@ -1,3 +1,6 @@
+import sys
+print("Python version:", sys.version)
+print("Current file:", __file__)
 import streamlit as st
 from visualize import plot_attention
 
