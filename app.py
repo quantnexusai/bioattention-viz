@@ -1,4 +1,42 @@
 import streamlit as st
+import subprocess
+import sys
+import os
+import importlib.util
+import time
+
+# Check if scispacy model is installed
+def is_model_installed():
+    try:
+        import en_core_sci_sm
+        return True
+    except ImportError:
+        return False
+
+# Install scispacy model if not already installed
+@st.cache_resource
+def install_scispacy_model():
+    if not is_model_installed():
+        with st.spinner("Installing biomedical model. This may take a few minutes..."):
+            try:
+                subprocess.check_call([
+                    f"{sys.executable}", "-m", "pip", "install", 
+                    "https://s3-us-west-2.amazonaws.com/ai2-s2-scispacy/releases/v0.5.1/en_core_sci_sm-0.5.1.tar.gz"
+                ])
+                st.success("Model installed successfully!")
+                # Add a small delay to ensure the model is fully loaded before proceeding
+                time.sleep(2)
+                # Force Python to recognize the newly installed package
+                importlib.invalidate_caches()
+            except Exception as e:
+                st.error(f"Failed to install model: {e}")
+                st.stop()
+
+# Call this at the start to ensure model is installed
+install_scispacy_model()
+
+# Now import the rest of your modules
+# This needs to be done after ensuring the model is installed
 from model import BioBERTAttention
 from visualize import plot_attention_heatmap
 from fetch_data import fetch_pubmed_abstract
