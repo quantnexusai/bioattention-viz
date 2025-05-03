@@ -1,0 +1,7 @@
+README.md
+setup.py
+bioattention_viz.egg-info/PKG-INFO
+bioattention_viz.egg-info/SOURCES.txt
+bioattention_viz.egg-info/dependency_links.txt
+bioattention_viz.egg-info/requires.txt
+bioattention_viz.egg-info/top_level.txt
